@@ -27,8 +27,8 @@ function App() {
   };
 
   const handleCloseNavMenu = (event) => {
-    setAnchorElNav(null);
-    let selectPage = event.target.name;
+    let selectPage = event.target.id;
+    console.log(selectPage);
     if(selectPage === 'Home'){
       navigate("/");
     }else if( selectPage === 'About us'){
@@ -36,7 +36,10 @@ function App() {
     }else if(selectPage === 'Store Manager'){
       navigate("/management");
     }
+    setAnchorElNav(null);
   };
+
+  
 
   return (
     <div>
@@ -90,8 +93,8 @@ function App() {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
+                  <MenuItem key={page}>
+                    <Typography textAlign="center" id = {page} onClick = {handleCloseNavMenu}>{page}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
