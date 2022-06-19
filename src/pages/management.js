@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import { useState } from "react";
 import './page.css';
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 export default function Management() {
     const [dataInput, setDataInput] = useState({
@@ -25,7 +26,7 @@ export default function Management() {
         region: 'Europe',
         education: 'Bachelors',
         Age: ''
-    }); 
+    });
 
     // const [errors, setErrors] = useState({
     //     cars: '',
@@ -49,45 +50,42 @@ export default function Management() {
     //     if(dataInput.age === ''){setErrors({...errors, Age: 'This field has to be fill'})}
 
     //     console.log(dataInput);
-        // setDataInput({
-        //     occupation: 'Skilled Manual',
-        //     maritalStatus: 'Married',
-        //     homeOwner: 'No',
-        //     Gender: 'Male',
-        //     cars: '',
-        //     income: '',
-        //     commuteDistance: '0-1 Miles',
-        //     children: '',
-        //     region: 'Europe',
-        //     education: 'Bachelors',
-        //     Age: ''
-        // })
+    // setDataInput({
+    //     occupation: 'Skilled Manual',
+    //     maritalStatus: 'Married',
+    //     homeOwner: 'No',
+    //     Gender: 'Male',
+    //     cars: '',
+    //     income: '',
+    //     commuteDistance: '0-1 Miles',
+    //     children: '',
+    //     region: 'Europe',
+    //     education: 'Bachelors',
+    //     Age: ''
+    // })
     // }
 
-    const { register, handleSubmit, formState : {errors}} = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
         console.log(data.cars);
         // setDataInput({...dataInput, cars: Number(data.cars) });
-        console.log({...dataInput , 
-            cars: Number(data.cars), 
+        console.log({
+            ...dataInput,
+            cars: Number(data.cars),
             income: Number(data.income),
             children: Number(data.children),
             Age: Number(data.age)
         });
-        setDataInput({
-            occupation: 'Skilled Manual',
-            maritalStatus: 'Married',
-            homeOwner: 'No',
-            Gender: 'Male',
-            cars: '',
-            income: '',
-            commuteDistance: '0-1 Miles',
-            children: '',
-            region: 'Europe',
-            education: 'Bachelors',
-            Age: ''
+        let url = '';
+        axios.post(url, {
+            data: {
+                ...dataInput,
+                cars: Number(data.cars),
+                income: Number(data.income),
+                children: Number(data.children),
+                Age: Number(data.age)
+            }
         })
-        register.cars = null;
     }
 
     return (
@@ -103,7 +101,7 @@ export default function Management() {
                                 color='warning'
                                 labelId="occupation-label"
                                 name="occupation"
-                                value = {dataInput.occupation}
+                                value={dataInput.occupation}
                                 label="Occupation"
                                 onChange={(e) => setDataInput({ ...dataInput, occupation: e.target.value })}
                             >
@@ -153,21 +151,21 @@ export default function Management() {
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} md={5}>
-                        <TextField 
-                        // value={dataInput.cars} onChange={(e) => setDataInput({ ...dataInput, cars: Number(e.target.value) })}
+                        <TextField
+                            // value={dataInput.cars} onChange={(e) => setDataInput({ ...dataInput, cars: Number(e.target.value) })}
                             color='warning' type='number' fullWidth label="Cars" name='cars'
-                            {...register("cars", {required: "Required"})}
-                            error = {!!errors?.cars}
-                            helperText = {errors?.cars ? errors.cars.message : null}
-                            />
+                            {...register("cars", { required: "Required" })}
+                            error={!!errors?.cars}
+                            helperText={errors?.cars ? errors.cars.message : null}
+                        />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <TextField 
-                            color='warning' type='number' fullWidth label="Income" name="income" 
-                            {...register("income", {required: "Required"})}
-                            error = {!!errors?.income}
-                            helperText = {errors?.income ? errors.income.message : null} 
-                            />
+                        <TextField
+                            color='warning' type='number' fullWidth label="Income" name="income"
+                            {...register("income", { required: "Required" })}
+                            error={!!errors?.income}
+                            helperText={errors?.income ? errors.income.message : null}
+                        />
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <FormControl fullWidth>
@@ -189,13 +187,13 @@ export default function Management() {
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <TextField 
-                        // value={dataInput.children} onChange={(e) => setDataInput({ ...dataInput, children: Number(e.target.value) })}
-                            color='warning' type='number' fullWidth label="Children" name="children" 
-                            {...register("children", {required: "Required"})}
-                            error = {!!errors?.children}
-                            helperText = {errors?.children ? errors.children.message : null}
-                            />
+                        <TextField
+                            // value={dataInput.children} onChange={(e) => setDataInput({ ...dataInput, children: Number(e.target.value) })}
+                            color='warning' type='number' fullWidth label="Children" name="children"
+                            {...register("children", { required: "Required" })}
+                            error={!!errors?.children}
+                            helperText={errors?.children ? errors.children.message : null}
+                        />
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <FormControl fullWidth>
@@ -234,16 +232,16 @@ export default function Management() {
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <TextField 
-                        // value={dataInput.Age} onChange={(e) => setDataInput({ ...dataInput, Age: Number(e.target.value) })}
-                            color="warning" type='number' fullWidth label="Age" name="age" 
-                            {...register("age", {required: "Required"})}
-                            error = {!!errors?.age}
-                            helperText = {errors?.age ? errors.age.message : null} 
-                            />
+                        <TextField
+                            // value={dataInput.Age} onChange={(e) => setDataInput({ ...dataInput, Age: Number(e.target.value) })}
+                            color="warning" type='number' fullWidth label="Age" name="age"
+                            {...register("age", { required: "Required" })}
+                            error={!!errors?.age}
+                            helperText={errors?.age ? errors.age.message : null}
+                        />
                     </Grid>
                 </Grid>
-                <Button type = 'submit' style={{ marginTop: '40px', backgroundColor: '#f4511e' }} variant="contained" id='predict-button'>Predict</Button>
+                <Button type='submit' style={{ marginTop: '40px', backgroundColor: '#f4511e' }} variant="contained" id='predict-button'>Predict</Button>
             </form>
 
         </Container>

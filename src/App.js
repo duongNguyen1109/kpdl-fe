@@ -119,7 +119,7 @@ function App() {
             <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <Button
-                  name = {page}
+                  id = {page}
                   key={page}
                   onClick={handleCloseNavMenu}
                   sx={{ mr: 3, fontWeight: 200, my: 2, color: 'white', display: 'block' }}
