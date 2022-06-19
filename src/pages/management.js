@@ -15,17 +15,13 @@ import axios from "axios";
 
 export default function Management() {
     const [dataInput, setDataInput] = useState({
-        occupation: 'Skilled Manual',
-        maritalStatus: 'Married',
-        homeOwner: 'No',
-        Gender: 'Male',
+        maritalStatus: 0,
+        homeOwner: 0,
+        gender: 1,
         cars: '',
         income: '',
-        commuteDistance: '0-1 Miles',
         children: '',
-        region: 'Europe',
-        education: 'Bachelors',
-        Age: ''
+        age: ''
     });
 
     // const [errors, setErrors] = useState({
@@ -74,7 +70,7 @@ export default function Management() {
             cars: Number(data.cars),
             income: Number(data.income),
             children: Number(data.children),
-            Age: Number(data.age)
+            age: Number(data.age)
         });
         let url = '';
         axios.post(url, {
@@ -83,7 +79,7 @@ export default function Management() {
                 cars: Number(data.cars),
                 income: Number(data.income),
                 children: Number(data.children),
-                Age: Number(data.age)
+                age: Number(data.age)
             }
         })
     }
@@ -94,7 +90,7 @@ export default function Management() {
             <hr style={{ marginBottom: '30px', width: "200px", height: "1px", backgroundColor: "#f4511e" }} />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container spacing={4}>
-                    <Grid item xs={12} md={6}>
+                    {/* <Grid item xs={12} md={6}>
                         <FormControl fullWidth>
                             <InputLabel id="occupation-label" color='warning'>Occupation</InputLabel>
                             <Select
@@ -112,7 +108,7 @@ export default function Management() {
                                 <MenuItem value={'Management'}>Management</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12} md={6}>
                         <FormControl fullWidth>
                             <InputLabel id="marital-status-label" color='warning'>Marital Status</InputLabel>
@@ -122,33 +118,33 @@ export default function Management() {
                                 name="maritalStatus"
                                 value={dataInput.maritalStatus}
                                 label="Marital Status"
-                                onChange={(e) => setDataInput({ ...dataInput, maritalStatus: e.target.value })}
+                                onChange={(e) => setDataInput({ ...dataInput, maritalStatus: Number(e.target.value) })}
                             >
-                                <MenuItem value={'Married'}>Married</MenuItem>
-                                <MenuItem value={'Single'}>Single</MenuItem>
+                                <MenuItem value= {1}>Married</MenuItem>
+                                <MenuItem value={0}>Single</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xs={12} md={2}>
-                        <FormControlLabel control={
-                            <Checkbox checked={(dataInput.homeOwner === 'Yes') ? true : false}
-                                onChange={(e) => setDataInput({ ...dataInput, homeOwner: e.target.checked ? 'Yes' : 'No' })} color='warning' />} label="Home Owner" />
-                    </Grid>
-                    <Grid item xs={12} md={5}>
+                    <Grid item xs={12} md={6}>
                         <FormControl fullWidth>
                             <InputLabel id="gender-label" color='warning'>Gender</InputLabel>
                             <Select
                                 color='warning'
                                 labelId="gender-label"
                                 name="gender"
-                                value={dataInput.Gender}
+                                value={dataInput.gender}
                                 label="Marital Status"
-                                onChange={(e) => setDataInput({ ...dataInput, Gender: e.target.value })}
+                                onChange={(e) => setDataInput({ ...dataInput, gender: Number(e.target.value) })}
                             >
-                                <MenuItem value={'Male'}>Male</MenuItem>
-                                <MenuItem value={'Female'}>Female</MenuItem>
+                                <MenuItem value={1}>Male</MenuItem>
+                                <MenuItem value={0}>Female</MenuItem>
                             </Select>
                         </FormControl>
+                    </Grid>
+                    <Grid item xs={12} md={2}>
+                        <FormControlLabel control={
+                            <Checkbox checked={(dataInput.homeOwner === 1) ? true : false}
+                                onChange={(e) => setDataInput({ ...dataInput, homeOwner: e.target.checked ? 1 : 0 })} color='warning' />} label="Home Owner" />
                     </Grid>
                     <Grid item xs={12} md={5}>
                         <TextField
@@ -159,7 +155,7 @@ export default function Management() {
                             helperText={errors?.cars ? errors.cars.message : null}
                         />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={5}>
                         <TextField
                             color='warning' type='number' fullWidth label="Income" name="income"
                             {...register("income", { required: "Required" })}
@@ -167,7 +163,7 @@ export default function Management() {
                             helperText={errors?.income ? errors.income.message : null}
                         />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    {/* <Grid item xs={12} md={6}>
                         <FormControl fullWidth>
                             <InputLabel id="commute-distance" color='warning'>Commute Distance</InputLabel>
                             <Select
@@ -185,7 +181,7 @@ export default function Management() {
                                 <MenuItem value={'10+ Miles'}>10+ Miles</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12} md={6}>
                         <TextField
                             // value={dataInput.children} onChange={(e) => setDataInput({ ...dataInput, children: Number(e.target.value) })}
@@ -195,7 +191,7 @@ export default function Management() {
                             helperText={errors?.children ? errors.children.message : null}
                         />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    {/* <Grid item xs={12} md={6}>
                         <FormControl fullWidth>
                             <InputLabel id="region-label" color='warning'>Region</InputLabel>
                             <Select
@@ -211,8 +207,8 @@ export default function Management() {
                                 <MenuItem value={'North America'}>North America</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
+                    </Grid> */}
+                    {/* <Grid item xs={12} md={6}>
                         <FormControl fullWidth>
                             <InputLabel id="education-label" color='warning'>Education</InputLabel>
                             <Select
@@ -230,7 +226,7 @@ export default function Management() {
                                 <MenuItem value={'Graduate Degree'}>Graduate Degree</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12} md={6}>
                         <TextField
                             // value={dataInput.Age} onChange={(e) => setDataInput({ ...dataInput, Age: Number(e.target.value) })}
